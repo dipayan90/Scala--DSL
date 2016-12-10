@@ -3,6 +3,8 @@ package com.persist.uw.examples
 import scala.reflect.ClassTag
 import Graph._
 
+import scala.collection.immutable.Iterable
+
 object Graph {
 
   trait Node
@@ -20,9 +22,9 @@ class Graph(val nodes: Set[Node], val links: Set[Link]) {
 
   def rels: Set[Rel] = links.map(_.r)
 
-  val nextRels: Map[Node, Set[Rel]] = ???
+  val nextRels: Map[Node, Set[Rel]] = links.groupBy(_.prev).map(e => e._1 -> e._2.map(_.r))
 
-  val nextNode: Map[Rel, Node] = ???
+  val nextNode: Map[Rel, Node] = links.groupBy(_.r).map(e => e._1 -> e._2.map(_.next).head)
 
   def cypher[T: ClassTag, T1](pattern: Pattern[T])(act: (T) => T1): Set[T1] = {
     // could add optimization here
