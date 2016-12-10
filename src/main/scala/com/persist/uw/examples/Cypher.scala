@@ -18,7 +18,7 @@ class Graph(val nodes: Set[Node], val links: Set[Link]) {
 
   import Cypher._
 
-  def rels: Set[Rel] = ???
+  def rels: Set[Rel] = links.map(_.r)
 
   val nextRels: Map[Node, Set[Rel]] = ???
 
