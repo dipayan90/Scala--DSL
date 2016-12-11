@@ -83,8 +83,17 @@ object Cypher {
   }
 
   // compound pattern, node followed by rel ...
+  //Todo: Need help here
   case class NR[T <: Node : ClassTag, T1: ClassTag](n: N[T], rs: RS[T1]) extends NS[(T, T1)] {
-    def cypher(g: Graph, start: Node): Set[(T, T1)] = ???
+    def cypher(g: Graph, start: Node): Set[(T, T1)] = {
+    /*  val result = for(
+        p1 <- g.nodes.collect {case p: T => p};
+        r1 <- g.nextRels.getOrElse(p1, Set()).collect { case b: RS[T1] => b };
+        p2 <- Seq(g.nextNode(r1)).collect { case m: T1 => m }
+      ) yield(p1,p2)
+      result */
+      ???
+    }
   }
 
   // compound pattern, rel followed by node ...
