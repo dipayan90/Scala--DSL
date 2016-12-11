@@ -61,7 +61,7 @@ object Cypher {
   case class N[T <: Node : ClassTag](cond: T => Boolean = (x: T) => true) extends NS[T] {
     def cypher(g: Graph, start: Node): Set[T] = {
       val result = for(
-        p1 <- g.nodes.collect { case p: T => p }
+        p1 <- g.nodes.collect { case p: T if cond(p) => p}
       ) yield p1
       result
     }
