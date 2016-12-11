@@ -59,7 +59,12 @@ object Cypher {
 
   // pattern for a Node
   case class N[T <: Node : ClassTag](cond: T => Boolean = (x: T) => true) extends NS[T] {
-    def cypher(g: Graph, start: Node): Set[T] = ???
+    def cypher(g: Graph, start: Node): Set[T] = {
+      val result = for(
+        p1 <- g.nodes.collect { case p: T => p }
+      ) yield p1
+      result
+    }
   }
 
   // pattern for a Rel
