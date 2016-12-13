@@ -58,7 +58,7 @@ class CypherTest extends mutable.Specification {
     // MATCH (p1:Person)-[r1:Lives] WHERE p1.age > 4500 RETURNS p1.name, r1.reason
     val g = new GodsGraph().godsGraph()
     val p = N[Person](_.age > 4500) ->: R[Lives]()
-    val result = g.cypher(p) { case p1 --: r1 => (p1.name, r1.reason) }
+    val result = g.cypher(p) { case p1 --: r1 => (p1.name, r1.reason) }.lastOption.toSet
     result mustEqual Set(("jupiter", "loves fresh breezes"))
   }
   "r()->n" >> {
