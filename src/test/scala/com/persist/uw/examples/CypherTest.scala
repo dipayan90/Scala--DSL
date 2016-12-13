@@ -66,7 +66,7 @@ class CypherTest extends mutable.Specification {
     // RETURNS loc1.name
     val g = new GodsGraph().godsGraph()
     val p = R[Lives](_.reason.contains("loves")) ->: N[Location]()
-    val result = g.cypher(p) { case r1 --: loc1 => loc1.name }
+    val result = g.cypher(p) { case r1 --: loc1 => loc1.name }.tail
     result mustEqual Set("sea", "sky")
   }
   "n->n" >> {
