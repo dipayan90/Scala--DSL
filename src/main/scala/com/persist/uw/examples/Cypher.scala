@@ -83,7 +83,7 @@ object Cypher {
         for {
         n1 <- n.cypher(g,start)
         r1 <- g.nextRels.getOrElse(n1,Set())
-        n2 <- g.nextNode(r1)
+        n2 <- Set(g.nextNode(r1))
         n3 <- ns.cypher(g,n2)
       } yield (n1,n3)
     }
@@ -106,7 +106,7 @@ object Cypher {
     def cypher(g: Graph, start: Rel): Set[(T, T1)] = {
       for {
         r1 <- r.cypher(g, start)
-        n1 <- g.nextNode(r1)
+        n1 <- Set(g.nextNode(r1))
         n2 <- ns.cypher(g, n1)
       } yield(r1,n2)
     }
